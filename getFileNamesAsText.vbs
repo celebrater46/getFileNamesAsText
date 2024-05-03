@@ -2,16 +2,17 @@
 
 Dim objFSO
 Dim objFile
+Dim objTextFile
 Dim strText
 Dim strPath
 Dim strProjectPath
 
 ' type "J:\Dropbox\PC5_cloud\pg\VB\testVBS\test"
-strPath = inputbox("type the target file directory (includes the file name).", "INPUT BOX")
-strProjectPath = fso.getParentFolderName(WScript.ScriptFullName) & "\files.txt"
+strPath = inputbox("Input the target directory.", "INPUT BOX")
 
 Set objFSO = WScript.CreateObject("Scripting.FileSystemObject")
-Set objFile = objFS.CreateTextFile(strProjectPath)
+strProjectPath = objFSO.getParentFolderName(WScript.ScriptFullName) & "\files.txt"
+Set objTextFile = objFSO.CreateTextFile(strProjectPath)
 
 For Each objFile In objFSO.GetFolder(strPath).Files
     ' File Name
@@ -23,9 +24,10 @@ For Each objFile In objFSO.GetFolder(strPath).Files
     
     ' Add a line break
     ' strText = strText & "\r\n"
-    objFile.WriteLine(strText)
+    
 Next
 
+objTextFile.WriteLine(strText)
 ' WScript.Echo strText
 
 Set objFSO = Nothing
